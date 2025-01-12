@@ -1,0 +1,18 @@
+{% extends 'portfolio/base.html' %} {# здесь указываем что наша страница принадлежит шаблону base.html #}
+{% load static %}
+{% load pluralize %} {# подгружаем фильтр из папки templatetags для различных окончаний в зависимости от кол-ва блогов #}
+{% block content %} {# указываем в какой блок вставляем. Имя блока должно быть как в base.html #}
+<h1 id="blogtitle" class="font-weight-bold text-center">Мои посты</h1>
+<h3 class="text-center mb-5">Владимир написал {{ blogs.count }} пост{{ blogs.count|rupluralize:',a,ов' }}</h3>
+{% for blog in blogs %}
+<div class="row justify-content-center my-3">
+  <div class="col-md-10">
+    <a href="{% url 'blog:detail' blog.id %}"><h2>{{ blog.title }}</h2></a> {# заключим в тег "а" чтобы сделать его кликабельным ведущим на функцию detail. blog: используется для уточнения имени куда идти коду (в нашем случае в blog/urls), например если у нас есть несколько приложений и в них есть функция/страница detail#}
+    <h5>{{ blog.date }}</h5>
+    <h4>{{ blog.description|safe|truncatechars:100 }}</h4> {#safe для того чтобы теги типа <h1> работали и в описании блога. truncatechars ограничивает видимость всего текста до 100 символов. в конце текста будут отображаться "..." #}
+{#        <p>{{ blog.description|striptags|truncatechars:100 }}</p> {# striptags скрывает теги html если таковые имеются в описании и выводит текст как обычный#}
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %} {# закрываем блок #}

@@ -1,0 +1,7 @@
+{% extends 'portfolio/base.html' %} {# здесь указываем что наша страница принадлежит шаблону base.html #}
+{% load static %}
+{% block content %} {# указываем в какой блок вставляем. Имя блока должно быть как в base.html #}
+<h1 class="text-center mt-5" id="blogdetailtitle">{{ blog.title }}</h1>
+<h5 class="text-center text-muted mb-5">--от {{ blog.date|date:'D j F Y' }}--</h5> {# приведение отображения даты в нашем случае "Пн 6 Январь 2025" (теги шаблона даты https://django.fun/docs/django/5.0/ref/templates/builtins/#date) #}
+{{ blog.description|safe }}
+{% endblock %} {# закрываем блок #}
